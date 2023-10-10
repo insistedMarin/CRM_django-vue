@@ -1,0 +1,21 @@
+describe('Login', () => {
+  it('should be able to log in with valid credentials', () => {
+    cy.visit('/login'); // 访问登录页面的 URL
+
+    cy.get('input[name="username"]').type('testuser'); // 输入用户名
+    cy.get('input[name="password"]').type('TestPassword123!'); // 输入密码
+    cy.get('button[type="submit"]').click(); // 点击登录按钮
+
+    cy.url().should('eq', '/dashboard'); // 验证登录后的 URL
+  });
+
+  it('should display an error message with invalid credentials', () => {
+    cy.visit('/login');
+
+    cy.get('input[name="username"]').type('nonexistentuser'); // 输入不存在的用户名
+    cy.get('input[name="password"]').type('InvalidPassword123!'); // 输入错误的密码
+    cy.get('button[type="submit"]').click();
+
+    cy.contains('Invalid credentials').should('be.visible'); // 验证错误消息是否显示
+  });
+});
