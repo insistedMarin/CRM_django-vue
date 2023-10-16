@@ -31,14 +31,28 @@ export default {
         alert('Passwords do not match');
         return;
       }
+      // 密码格式验证
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordPattern.test(this.password)) {
+      alert('Password should be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.');
+      return;
+    }
+
+    // 邮件格式验证
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
+    if (!emailPattern.test(this.email)) {
+      alert('Invalid email format.');
+      return;
+    }
+
 
       // 准备要发送的数据
       const data = {
         username: this.username,
         password: this.password,
+        password_confirm: this.password_confirm,
         email: this.email,
-        first_name: 'Test456', // 这里可以设置默认的 first_name 和 last_name
-        last_name: 'User456',
       };
 
       // 发送注册请求
@@ -60,28 +74,37 @@ export default {
 
 <style scoped>
 .register-container {
-  text-align: center;
-  margin-top: 60px;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #2c3e50;
+  color: white;
 }
 
 .register-form {
-  display: inline-block;
   border: 1px solid #ccc;
-  padding: 20px;
+  padding: 25px 40px; /* 增加左右的内边距 */
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .input-field {
+  display: block; /* 使输入框占满整行 */
   width: 100%;
   padding: 10px;
-  margin: 10px 0;
+  margin: 10px 0; /* 上下间距保持为10px，左右间距为0 */
   border: 1px solid #ccc;
   border-radius: 3px;
   outline: none;
+  box-sizing: border-box; /* 保证宽度包括内边距和边框 */
 }
 
 .register-button {
+  display: block; /* 使按钮占满整行 */
+  width: 100%;
   background-color: #007bff;
   color: #fff;
   border: none;
@@ -89,9 +112,11 @@ export default {
   border-radius: 3px;
   cursor: pointer;
   font-weight: bold;
+  margin-top: 10px; /* 与最后一个输入框的间距 */
 }
 
 .register-button:hover {
   background-color: #0056b3;
 }
 </style>
+

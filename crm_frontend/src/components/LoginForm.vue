@@ -2,8 +2,8 @@
 <div class="login-container">
   <h1>Login</h1>
   <form @submit.prevent="login" class="login-form">
-    <input v-model="username" placeholder="Username" class="input-field" name="username" /> <!-- 添加 name 属性 -->
-    <input v-model="password" type="password" placeholder="Password" class="input-field" name="password" /> <!-- 添加 name 属性 -->
+    <input v-model="username" placeholder="Username" class="input-field" name="username" />
+    <input v-model="password" type="password" placeholder="Password" class="input-field" name="password" />
     <button type="submit" class="login-button">Login</button>
   </form>
 </div>
@@ -28,16 +28,20 @@ export default {
       };
 
       // 发送登录请求
-      axios.post(' http://127.0.0.1:8000/login/', data)
+    axios.post('http://127.0.0.1:8000/login/', data)
         .then(response => {
-          // 处理登录成功的情况
           console.log('Login successful', response.data);
-          // 可以跳转到用户的个人页面或其他操作
-        })
+          localStorage.setItem('access_token', response.data.access_token);
+
+          // 跳转到主页
+          this.$router.push({ name: 'Home' });
+      })
         .catch(error => {
-          // 处理登录失败的情况
-          console.error('Login failed', error.response.data);
-          // 可以显示错误信息给用户
+          if (error.response && error.response.data) {
+            console.error('Login failed', error.response.data);
+              } else {
+            console.error('Login failed', error.message);
+            }
         });
     },
   },
@@ -46,39 +50,58 @@ export default {
 
 <style scoped>
 .login-container {
-  text-align: center;
-  margin: 0 auto;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #2c3e50;
+  color: white;
+}
+
+h1 {
+  margin-bottom: 20px;
 }
 
 .login-form {
-  display: inline-block;
-  border: 1px solid #ccc;
-  padding: 20px;
+  width: 300px;
+  padding: 30px;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: rgba(44, 62, 80, 0.8);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
+
 
 .input-field {
   width: 100%;
-  padding: 10px;
   margin: 10px 0;
-  border: 1px solid #ccc;
+  padding: 10px;
+  border: 1px solid #3498db;
   border-radius: 3px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
   outline: none;
+  box-sizing: border-box;  /* 确保input宽度包括内边距和边框 */
+}
+
+.input-field::placeholder {
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .login-button {
-  background-color: #007bff;
-  color: #fff;
+  width: 100%;  /* 让按钮的宽度也占满容器 */
+  margin-top: 10px;
+  background-color: #3498db;
   border: none;
   padding: 10px 20px;
   border-radius: 3px;
   cursor: pointer;
-  font-weight: bold;
+  transition: background-color 0.3s;
 }
 
 .login-button:hover {
-  background-color: #0056b3;
+  background-color: #2980b9;
 }
 </style>
 
