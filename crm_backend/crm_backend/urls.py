@@ -17,10 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from crm_app.views import register_api, LoginView
+from crm_app.views import register_api, LoginView, get_user_info
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('register/', register_api, name='register'),
     path('login/', LoginView.as_view(), name='login'),
+    path('user_info/', get_user_info, name='user_info'),
 ]
