@@ -4,6 +4,7 @@
     <div class="nav-links">
       <!-- 你可以添加其他导航链接在这里 -->
       <div v-if="username"  class="username" @click="navigateToUserInfo">{{ username }}</div>
+      <div v-if="username" class="logout" @click="logout">Logout</div>
       <div v-else class="login" @click="navigateToLogin">Login</div>
     </div>
   </div>
@@ -38,6 +39,19 @@ export default {
         });
       }
     },
+    logout() {
+    // 删除存储的token
+    localStorage.removeItem('access_token');
+
+    // 删除当前用户名
+    this.username = '';
+
+    // 重定向到登录页面
+    this.$router.push({ name: 'Login' });
+  },
+    navigateToHome(){
+       this.$router.push({ name: 'Home' });
+    },
     navigateToLogin() {
       this.$router.push({ name: 'Login' });
     },
@@ -52,7 +66,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 40px;
   background-color: #2c3e50;
   color: white;
   height: 60px;
@@ -87,7 +101,7 @@ export default {
   cursor: pointer;
 }
 
-.login {
+.logout, .login {
   cursor: pointer;
   background-color: #3498db;
   color: white;
@@ -98,5 +112,8 @@ export default {
   &:hover {
     background-color: #2980b9;
   }
+}
+.logout:hover, .login:hover {
+  background-color: #2980b9;
 }
 </style>

@@ -3,7 +3,7 @@
     <NavBar />
     <div class="user-info-container">
       <div class="user-card">
-        <img src="@/assets/logo.png" alt="User Avatar" class="user-avatar"/> <!-- 默认头像，您可以更改路径 -->
+        <img src="@/assets/logo.png" alt="User Avatar" class="user-avatar"/>
         <h2>{{ userInfo.username }}</h2>
         <p>Email: {{ userInfo.email }}</p>
         <div class="user-actions">

@@ -1,11 +1,18 @@
 <template>
 <div class="login-container">
   <h1>Login</h1>
-  <form @submit.prevent="login" class="login-form">
+  <form @submit.prevent="login" @keyup.enter="login" class="login-form">
     <input v-model="username" placeholder="Username" class="input-field" name="username" />
     <input v-model="password" type="password" placeholder="Password" class="input-field" name="password" />
+    <div class="checkbox-container">
+      <input type="checkbox" v-model="rememberMe" class="input-checkbox" id="rememberMe">
+      <label for="rememberMe">Remember Me</label>
+    </div>
     <button type="submit" class="login-button">Login</button>
   </form>
+  <div class="footer">
+    <p>Don't have an account? <span @click="goToRegister" class="register-link">Register now</span></p>
+  </div>
 </div>
 </template>
 
@@ -25,6 +32,7 @@ export default {
       const data = {
         username: this.username,
         password: this.password,
+        rememberMe: false
       };
 
       // 发送登录请求
@@ -32,6 +40,10 @@ export default {
         .then(response => {
           console.log('Login successful', response.data);
           localStorage.setItem('access_token', response.data.access_token);
+          if (this.rememberMe) {
+          localStorage.setItem('username', this.username);
+          localStorage.setItem('password', this.password);
+        }
 
           // 跳转到主页
           this.$router.push({ name: 'Home' });
@@ -44,6 +56,9 @@ export default {
             }
         });
     },
+    goToRegister() {
+      this.$router.push({ name: 'Register' });
+    }
   },
 };
 </script>
@@ -102,6 +117,19 @@ h1 {
 
 .login-button:hover {
   background-color: #2980b9;
+}
+.footer {
+  margin-top: 20px;
+}
+
+.register-link {
+  color: #3498db;
+  cursor: pointer;
+  transition: color 0.3s;
+
+  &:hover {
+    color: #2980b9;
+  }
 }
 </style>
 

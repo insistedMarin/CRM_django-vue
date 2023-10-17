@@ -17,11 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from crm_app.views import register_api, LoginView, get_user_info
+from crm_app.views import register_api, LoginView, get_user_info, send_verification_code
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('register/', register_api, name='register'),
     path('login/', LoginView.as_view(), name='login'),
     path('user_info/', get_user_info, name='user_info'),
+    path("send_verification_code/", send_verification_code, name="send_verification_code")
 ]

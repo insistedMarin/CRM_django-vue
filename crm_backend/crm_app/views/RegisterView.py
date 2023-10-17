@@ -1,4 +1,4 @@
-from django.contrib.auth import get_user_model
+from django.core.cache import cache
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
@@ -10,6 +10,12 @@ from crm_app.forms import RegisterForm
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def register_api(request):
+    verification_code = request.data.get('verification_code')
+    email = request.data.get('email')
+
+    if not verification_code or not cache.get(email) == verification_code:
+        return Response({"detail": "Invalid verification code."}, status=status.HTTP_400_BAD_REQUEST)
+
     form = RegisterForm(request.data)
     if form.is_valid():
         user = form.save(commit=False)
