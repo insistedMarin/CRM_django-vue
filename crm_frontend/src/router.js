@@ -3,6 +3,8 @@ import LoginForm from "@/components/LoginForm.vue";
 import RegisterForm from "@/components/RegisterForm.vue";
 import HomePage from "@/components/HomePage.vue";
 import UserInfo from "@/components/UserInfo.vue";
+import CustomerList from "@/components/CustomerList.vue";
+import axios from "axios";
 
 const routes = [
     {
@@ -30,6 +32,14 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: RegisterForm
+  },
+    {
+    path: '/customer-list',
+    name: 'CustomerList',
+    component: CustomerList,
+        meta: {
+        requiresAuth: true
+    }
   }
 ];
 
@@ -39,13 +49,24 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    // 检查要访问的路由是否需要身份验证
     if (to.matched.some(record => record.meta.requiresAuth)) {
-        if (!localStorage.getItem('access_token')) {
-            // 如果用户未登录，重定向到登录页面
+        const token = localStorage.getItem('access_token');
+        if (!token) {
             next({ name: 'Login' });
-        } else {
-            next();
+            return;
+        }else{
+            axios.get('http://127.0.0.1:8000/user_info/', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        })
+        .then(() => {
+          next()
+        })
+        .catch(()=> {
+             next({ name: 'Login' });
+            return;
+        });
         }
     } else {
         next();

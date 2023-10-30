@@ -4,13 +4,7 @@
 
     <div class="dashboard">
       <!-- 左侧导航栏 -->
-      <div class="sidebar">
-        <div class="menu-item">Dashboard</div>
-        <div class="menu-item">Contacts</div>
-        <div class="menu-item">Opportunities</div>
-        <div class="menu-item">Tasks</div>
-        <div class="menu-item">Reports</div>
-      </div>
+      <SidebarMenu />
 
       <!-- 主内容区 -->
       <div class="main-content">
@@ -46,33 +40,21 @@
 
 <script>
 import NavBar from './NavBar.vue';
+import SidebarMenu from "@/components/SidebarMenu.vue";
 
 export default {
   name: "HomePage",
   components: {
-    NavBar
-  }
+    NavBar,
+    SidebarMenu
+  },
+
 }
 </script>
 
 <style scoped>
 .dashboard {
   display: flex;
-}
-
-.sidebar {
-  width: 20%;
-  background-color: #f6f6f6;
-  padding: 2rem;
-}
-
-.menu-item {
-  margin-bottom: 1rem;
-  cursor: pointer;
-}
-
-.menu-item:hover {
-  color: blue;
 }
 
 .main-content {
