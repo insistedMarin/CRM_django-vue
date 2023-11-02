@@ -1,21 +1,25 @@
 <template>
   <div v-if="show" class="modal-overlay" @click="closeModal">
     <div class="modal" @click.stop>
-      <h1>Add New Opportunity</h1>
-      <form @submit.prevent="saveOpportunity">
-      <div>
-        <label>Expected Revenue:</label>
-        <input type="number" v-model="opportunity.expected_revenue" required />
-      </div>
-      <div>
-        <label>Current Stage:</label>
-        <select v-model="opportunity.current_stage" required>
-            <option value="initial_contact">Initial Contact</option>
-            <option value="proposal">Proposal</option>
-            <option value="negotiation">Negotiation</option>
-          </select>
-      </div>
-      <button type="submit">Save</button>
+      <h1>Edit Task</h1>
+      <form @submit.prevent="updateTask">
+        <div>
+          <label>Title:</label>
+          <input type="text" v-model="task.title" required />
+        </div>
+        <div>
+          <label>Description:</label>
+          <textarea v-model="task.description"></textarea>
+        </div>
+        <div>
+          <label>Due Date:</label>
+          <input type="datetime-local" v-model="task.due_date" required />
+        </div>
+        <div>
+          <label>Reminder:</label>
+          <input type="datetime-local" v-model="task.reminder" />
+        </div>
+        <button type="submit">Update</button>
         <button @click="closeModal">Cancel</button>
       </form>
     </div>
@@ -26,39 +30,38 @@
 import axios from "axios";
 
 export default {
-  name: "OpportunityAdd",
   props: {
     show: Boolean,
-    customerData: Number
+    taskData: Object
   },
-  watch: {
-    customerData(newVal) {
-      this.opportunity.customer = newVal;
-    }
-  },
- data() {
+  data() {
     return {
-      opportunity: {
-        customer: '',
-        expected_revenue: 0,
-        current_stage: 'initial_contact',
+      task: {
+        title: "",
+        description: "",
+        due_date: "",
+        reminder: "",
       }
     };
   },
-   methods: {
-    async saveOpportunity() {
+  watch: {
+    taskData(newVal) {
+      this.task = { ...newVal };
+    }
+  },
+  methods: {
+    async updateTask() {
       const token = localStorage.getItem('access_token');
       try {
-        const response = await axios.post('http://127.0.0.1:8000/salesopportunities/', this.opportunity,{
+        await axios.put(`http://127.0.0.1:8000/tasks/${this.task.id}/`, this.task, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
         });
-        console.log(response)
-        this.$emit('saved');
+        this.$emit('updated');
         this.closeModal();
       } catch (error) {
-        console.error('Error saving opportunity:', error);
+        console.error('Error updating task:', error);
       }
     },
     closeModal() {
@@ -67,6 +70,7 @@ export default {
   }
 };
 </script>
+
 
 <style scoped>
 /* 全局样式 */
@@ -108,14 +112,15 @@ button[type="submit"]:hover {
   background-color: #0056b3;
 }
 
-button[@click="cancel"] {
+.cancel-button {
   background-color: #e5e5e5;
   color: #333333;
 }
 
-button[@click="cancel"]:hover {
+.cancel-button:hover {
   background-color: #c3c3c3;
 }
+
 .modal-overlay {
   position: fixed;
   top: 0;

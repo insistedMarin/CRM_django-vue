@@ -5,6 +5,7 @@ import HomePage from "@/components/HomePage.vue";
 import UserInfo from "@/components/UserInfo.vue";
 import CustomerList from "@/components/CustomerList.vue";
 import OpportunityList from "@/components/OpportunityList.vue"
+import TaskList from "@/components/TaskList"
 import axios from "axios";
 
 const routes = [
@@ -49,6 +50,14 @@ const routes = [
     meta: {
           requiresAuth: true
         }
+   },
+   {
+    path: '/task-list',
+    name: 'TaskList',
+    component:TaskList,
+    meta:{
+      requiresAuth:true
+    }
    }
 ];
 

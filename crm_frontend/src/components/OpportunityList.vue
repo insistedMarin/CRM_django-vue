@@ -10,6 +10,7 @@
       <div class="main-content">
         <h1>Sales Opportunities</h1>
          <OpportunityEdit :show="showEditModal" :opportunityData="selectedOpportunity" @close="showEditModal = false" @updated="fetchOpportunities"></OpportunityEdit>
+         <TaskAdd :show="showAddTaskModel" :customerData="selectedCustomer" @close="showAddTaskModel = false"></TaskAdd>
         <!-- Opportunity List -->
         <div class="opportunity-list">
           <table>
@@ -31,6 +32,7 @@
                 <td>
                   <button @click="editOpportunity(opportunity)">Edit</button>
                   <button @click="deleteOpportunity(opportunity.id)">Delete</button>
+                  <button @click="addTask(opportunity.customer)">Add Task</button>
                 </td>
               </tr>
             </tbody>
@@ -45,6 +47,7 @@
 import NavBar from './NavBar.vue';
 import SidebarMenu from "@/components/SidebarMenu.vue";
 import OpportunityEdit from "@/components/OpportunityEdit.vue";
+import TaskAdd from "@/components/TaskAdd.vue";
 import axios from 'axios';
 
 export default {
@@ -52,12 +55,14 @@ export default {
   components: {
     NavBar,
     SidebarMenu,
-    OpportunityEdit
+    OpportunityEdit,
+    TaskAdd
   },
   data() {
     return {
       opportunities: [],
       showEditModal: false,
+      showAddTaskModel:false
     };
   },
   methods: {
@@ -106,6 +111,10 @@ export default {
       this.selectedOpportunity = opportunity;
       this.showEditModal = true;
       console.log(opportunity)
+    },
+    addTask(customer){
+      this.selectedCustomer=customer;
+      this.showAddTaskModel=true;
     },
     deleteOpportunity(opportunityId) {
        const token = localStorage.getItem('access_token');

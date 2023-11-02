@@ -1,21 +1,25 @@
 <template>
   <div v-if="show" class="modal-overlay" @click="closeModal">
     <div class="modal" @click.stop>
-      <h1>Add New Opportunity</h1>
-      <form @submit.prevent="saveOpportunity">
-      <div>
-        <label>Expected Revenue:</label>
-        <input type="number" v-model="opportunity.expected_revenue" required />
-      </div>
-      <div>
-        <label>Current Stage:</label>
-        <select v-model="opportunity.current_stage" required>
-            <option value="initial_contact">Initial Contact</option>
-            <option value="proposal">Proposal</option>
-            <option value="negotiation">Negotiation</option>
-          </select>
-      </div>
-      <button type="submit">Save</button>
+      <h1>Add New Task</h1>
+      <form @submit.prevent="saveTask">
+        <div>
+          <label>Title:</label>
+          <input type="text" v-model="task.title" required />
+        </div>
+        <div>
+          <label>Description:</label>
+          <textarea v-model="task.description"></textarea>
+        </div>
+        <div>
+          <label>Due Date:</label>
+          <input type="datetime-local" v-model="task.due_date" required />
+        </div>
+        <div>
+          <label>Reminder:</label>
+          <input type="datetime-local" v-model="task.reminder" />
+        </div>
+        <button type="submit">Save</button>
         <button @click="closeModal">Cancel</button>
       </form>
     </div>
@@ -26,39 +30,44 @@
 import axios from "axios";
 
 export default {
-  name: "OpportunityAdd",
+  name: "TaskAdd",
   props: {
     show: Boolean,
     customerData: Number
   },
   watch: {
     customerData(newVal) {
-      this.opportunity.customer = newVal;
+      this.task.customer = newVal;
     }
   },
- data() {
+  data() {
     return {
-      opportunity: {
-        customer: '',
-        expected_revenue: 0,
-        current_stage: 'initial_contact',
-      }
+      task: {
+        user:null,
+        customer:null,
+        title: "",
+        description: "",
+        due_date: "",
+        reminder: "",
+      },
     };
   },
-   methods: {
-    async saveOpportunity() {
+  methods: {
+    async saveTask() {
+      const user_id=localStorage.getItem('user_id');
+      this.task.user=user_id;
       const token = localStorage.getItem('access_token');
       try {
-        const response = await axios.post('http://127.0.0.1:8000/salesopportunities/', this.opportunity,{
+        const response = await axios.post('http://127.0.0.1:8000/tasks/', this.task, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
         });
-        console.log(response)
+        console.log(response);
         this.$emit('saved');
         this.closeModal();
       } catch (error) {
-        console.error('Error saving opportunity:', error);
+        console.error('Error saving task:', error);
       }
     },
     closeModal() {
@@ -67,6 +76,7 @@ export default {
   }
 };
 </script>
+
 
 <style scoped>
 /* 全局样式 */

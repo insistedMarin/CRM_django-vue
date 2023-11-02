@@ -17,7 +17,11 @@
         <div class="menu-item" @click="navigate" :href="href">Opportunities</div>
       </template>
     </router-link>
-    <div class="menu-item">Tasks</div>
+    <router-link to="/task-list" class="menu-item" active-class="active">
+      <template v-slot:default="{ navigate, href }">
+        <div class="menu-item" @click="navigate" :href="href">Tasks</div>
+      </template>
+    </router-link>
     <div class="menu-item">Reports</div>
   </div>
 </template>

@@ -31,6 +31,7 @@ class SalesOpportunity(models.Model):
 
 class Task(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer,on_delete=models.CASCADE,default=1)
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
     due_date = models.DateTimeField()

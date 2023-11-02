@@ -40,6 +40,7 @@ export default {
         .then(response => {
           console.log('Login successful', response.data);
           localStorage.setItem('access_token', response.data.access_token);
+          localStorage.setItem('user_id',response.data.user_id)
           if (this.rememberMe) {
           localStorage.setItem('username', this.username);
           localStorage.setItem('password', this.password);

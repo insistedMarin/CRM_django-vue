@@ -17,7 +17,8 @@ class LoginView(APIView):
         if user is not None:
             refresh = RefreshToken.for_user(user)
             access_token = str(refresh.access_token)
+            user_id =user.id
 
-            return Response({'access_token': access_token})
+            return Response({'access_token': access_token,'user_id':user_id})
         else:
             return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
