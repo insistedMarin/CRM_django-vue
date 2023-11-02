@@ -18,10 +18,12 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from crm_app.views import register_api, LoginView, get_user_info, send_verification_code, CustomerViewSet
+from crm_app.views import register_api, LoginView, get_user_info, send_verification_code, CustomerViewSet, SalesOpportunityViewSet
+
 
 router = DefaultRouter()
 router.register(r'customers', CustomerViewSet)
+router.register(r'salesopportunities', SalesOpportunityViewSet)
 
 urlpatterns = [
     path("admin/", admin.site.urls),

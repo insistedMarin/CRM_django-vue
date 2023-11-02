@@ -12,8 +12,11 @@
         <div class="menu-item" @click="navigate" :href="href">Contacts</div>
       </template>
     </router-link>
-
-    <div class="menu-item">Opportunities</div>
+    <router-link to="/opportunity-list" class="menu-item" active-class="active">
+      <template v-slot:default="{ navigate, href }">
+        <div class="menu-item" @click="navigate" :href="href">Opportunities</div>
+      </template>
+    </router-link>
     <div class="menu-item">Tasks</div>
     <div class="menu-item">Reports</div>
   </div>
@@ -23,11 +26,6 @@
 <script>
 export default {
   name: "SidebarMenu",
-    methods:{
-    ToContacts(){
-       this.$router.push({ name: 'CustomerList' });
-    },
-  }
 }
 </script>
 

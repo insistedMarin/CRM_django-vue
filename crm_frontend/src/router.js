@@ -4,6 +4,7 @@ import RegisterForm from "@/components/RegisterForm.vue";
 import HomePage from "@/components/HomePage.vue";
 import UserInfo from "@/components/UserInfo.vue";
 import CustomerList from "@/components/CustomerList.vue";
+import OpportunityList from "@/components/OpportunityList.vue"
 import axios from "axios";
 
 const routes = [
@@ -37,10 +38,18 @@ const routes = [
     path: '/customer-list',
     name: 'CustomerList',
     component: CustomerList,
-        meta: {
+    meta: {
         requiresAuth: true
     }
-  }
+  },
+   {
+    path: '/opportunity-list',
+    name: 'OpportunityList',
+    component: OpportunityList,
+    meta: {
+          requiresAuth: true
+        }
+   }
 ];
 
 const router = createRouter({

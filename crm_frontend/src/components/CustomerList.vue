@@ -12,8 +12,9 @@
         <input type="text" v-model="search" placeholder="Search for a customer..."/>
 
         <button @click="openAddCustomerModel">Add New Customer</button>
-        <CustomerAdd :show="showModal" @close="showModal = false" @saved="fetchCustomers"></CustomerAdd>
+        <CustomerAdd :show="showAddModal" @close="showAddModal = false" @saved="fetchCustomers"></CustomerAdd>
         <CustomerEdit :show="showEditModal" :customerData="selectedCustomer" @close="showEditModal = false" @updated="fetchCustomers"></CustomerEdit>
+        <OpportunityAdd :show="showAddOpportunityModel" :customerData="selectedCustomer" @close="showAddOpportunityModel = false"></OpportunityAdd>
         <table>
           <thead>
             <tr>
@@ -29,9 +30,9 @@
               <td>{{ customer.company }}</td>
               <td>{{ customer.email }}</td>
               <td>
-
                 <button @click="editCustomer(customer)">Edit</button>
                 <button @click="deleteCustomer(customer.id)">Delete</button>
+                <button @click="openAddOpportunityModel(customer.id)">Add Opportunity</button>
               </td>
             </tr>
           </tbody>
@@ -46,6 +47,7 @@ import axios from 'axios';
 import NavBar from './NavBar.vue';
 import CustomerAdd from "@/components/CustomerAdd.vue";
 import CustomerEdit from "@/components/CustomerEdit.vue";
+import OpportunityAdd from "@/components/OpportunityAdd.vue";
 import SidebarMenu from "@/components/SidebarMenu.vue";
 
 export default {
@@ -54,12 +56,14 @@ export default {
     NavBar,
     SidebarMenu,
     CustomerAdd,
-    CustomerEdit
+    CustomerEdit,
+    OpportunityAdd
   },
   data() {
     return {
       customers: [],
-      showModal: false,
+      showAddModal: false,
+      showAddOpportunityModel:false,
       search: '',
       showEditModal: false,
     selectedCustomer: null,
@@ -91,7 +95,11 @@ export default {
         });
     },
     openAddCustomerModel() {
-      this.showModal = true;
+      this.showAddModal = true;
+    },
+    openAddOpportunityModel(customerid){
+      this.selectedCustomer=customerid
+      this.showAddOpportunityModel=true;
     },
     editCustomer(customer) {
       this.selectedCustomer = customer;
