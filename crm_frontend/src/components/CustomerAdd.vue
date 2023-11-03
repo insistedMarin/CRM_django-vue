@@ -5,11 +5,11 @@
       <form @submit.prevent="saveCustomer">
       <div>
         <label>Name:</label>
-        <input type="text" v-model="customer.name" required />
+        <input type="text" name="customerName" v-model="customer.name" required />
       </div>
       <div>
         <label>Company:</label>
-        <input type="text" v-model="customer.company" required />
+        <input type="text" name="customerCompany" v-model="customer.company" required />
       </div>
       <div>
         <label>Job Title:</label>
@@ -21,7 +21,7 @@
       </div>
       <div>
         <label>Email:</label>
-        <input type="email" v-model="customer.email" required />
+        <input type="email" name="customerEmail" v-model="customer.email" required />
       </div>
       <div>
         <label>Address:</label>
