@@ -6,26 +6,21 @@ pipeline {
     }
 
     stages {
-        // stage('Checkout') {
-        //     steps {
-        //         checkout scm
-        //     }
-        // }
-
         stage('Navigate to crm_backend') {
             agent {
-                 dockerContainer {
-                     image 'python:3.9.13-alpine3.16'
+                dockerContainer {
+                    image 'python:3.9.13-alpine3.16'
                 }
             }
             steps {
                 dir('crm_backend') {
                     // 进入 crm_backend 目录并执行后端操作
+                    sh 'echo "Installing dependencies..."'
                     sh 'pip install -r requirements.txt'  // 安装依赖
+                    sh 'echo "Running backend tests..."'
                     sh 'python manage.py test crm_app.tests'  // 运行后端测试
                 }
             }
         }
-
     }
 }
