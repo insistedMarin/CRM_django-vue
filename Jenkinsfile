@@ -1,5 +1,5 @@
 pipeline {
-    agent none
+    agent any
 
     environment {
         DJANGO_SETTINGS_MODULE = 'crm_backend.crm_backend.settings'  
