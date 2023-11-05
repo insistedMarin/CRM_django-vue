@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-        DJANGO_SETTINGS_MODULE = 'crm_backend.settings'  
+        DJANGO_SETTINGS_MODULE = 'crm_backend.crm_backend.settings'  
     }
 
     stages {
