@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Navigate to crm_backend') {
             agent {
-                dockerContainer {
+                docker {
                     image 'python:3.9.13-alpine3.16'
                 }
             }
