@@ -6,6 +6,11 @@ pipeline {
     }
 
     stages {
+        stage('test'){
+            steps{
+                sh 'echo "test"'
+            }
+        }
         stage('Navigate to crm_backend') {
             agent {
                 dockerContainer {
