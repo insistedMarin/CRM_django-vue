@@ -6,10 +6,26 @@ pipeline {
     }
 
     stages {
+        stage('Start PostgreSQL Container') {
+            steps {
+                script {
+                    // 创建一个 Docker 网络以便容器之间通信
+                    sh 'docker network create my-network'
+                    
+                    // 使用 Docker 启动 PostgreSQL 容器，并将其连接到 my-network
+                    sh 'docker run --name my-postgres -e POSTGRES_PASSWORD=mysecretpassword -d -p 5432:5432 --network my-network postgres:latest'
+                    
+                    // 等待 PostgreSQL 容器启动
+                    sh 'until docker exec -i my-postgres psql -U postgres -c "SELECT 1"; do sleep 1; done'
+                }
+            }
+        }
+
         stage('Navigate to crm_backend') {
             agent {
                 docker {
                     image 'python:3.9.13-alpine3.16'
+                    network 'my-network'  // 将 Django 容器连接到相同的网络
                 }
             }
             steps {
