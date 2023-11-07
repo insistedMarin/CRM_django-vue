@@ -45,6 +45,9 @@ pipeline {
 
                     // 运行Django应用的Docker容器
                     sh 'docker run -d -p 8000:8000 --name django-container my-django-app'
+
+                    sh 'python manage.py makemigrations'
+                    sh 'python manage.py migrate'
                     }
                 }
         }
