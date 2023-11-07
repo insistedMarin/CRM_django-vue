@@ -35,11 +35,6 @@ pipeline {
             }
         }
         stage('Deploy Backend Server') {
-            agent {
-                docker {
-                image 'python:3.9.13-alpine3.16'
-            }
-            }
              steps {
                  dir('crm_backend') {
                     // 进入 crm_backend 目录并执行部署操作
