@@ -106,14 +106,21 @@ WSGI_APPLICATION = "crm_backend.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'postgres',  # 默认的数据库名，除非你在 Docker 启动命令中指定了其他的名称
+#         'USER': 'postgres',  # 默认的用户
+#         'PASSWORD': 'mysecretpassword',  # 你在启动 Docker 容器时设置的密码
+#         'HOST': 'localhost',  # 或 Docker 容器的 IP 地址
+#         'PORT': '5432',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',  # 默认的数据库名，除非你在 Docker 启动命令中指定了其他的名称
-        'USER': 'postgres',  # 默认的用户
-        'PASSWORD': 'mysecretpassword',  # 你在启动 Docker 容器时设置的密码
-        'HOST': 'localhost',  # 或 Docker 容器的 IP 地址
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ':memory:',
     }
 }
 
