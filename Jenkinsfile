@@ -25,7 +25,6 @@ pipeline {
             agent {
                 docker {
                     image 'python:3.9.13-alpine3.16'
-                    network 'my-network'  // 将 Django 容器连接到相同的网络
                 }
             }
             steps {
