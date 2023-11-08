@@ -6,6 +6,7 @@ import UserInfo from "@/components/UserInfo.vue";
 import CustomerList from "@/components/CustomerList.vue";
 import OpportunityList from "@/components/OpportunityList.vue"
 import TaskList from "@/components/TaskList"
+import ReportList from "@/components/ReportList"
 import axios from "axios";
 
 const routes = [
@@ -58,7 +59,16 @@ const routes = [
     meta:{
       requiresAuth:true
     }
+   },
+   {
+    path: '/report-list',
+    name: 'ReportList',
+    component:ReportList,
+    meta:{
+      requiresAuth:true
+    }
    }
+
 ];
 
 const router = createRouter({

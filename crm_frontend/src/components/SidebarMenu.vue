@@ -22,7 +22,11 @@
         <div class="menu-item" @click="navigate" :href="href">Tasks</div>
       </template>
     </router-link>
-    <div class="menu-item">Reports</div>
+     <router-link to="/report-list" class="menu-item" active-class="active">
+      <template v-slot:default="{ navigate, href }">
+        <div class="menu-item" @click="navigate" :href="href">Reports</div>
+      </template>
+    </router-link>
   </div>
 </template>
 

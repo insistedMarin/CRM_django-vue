@@ -48,13 +48,3 @@ class Report(models.Model):
     data = models.TextField()  # You can store the data in JSON format or link to another model for detailed data
 
 
-class SupportTicket(models.Model):
-    TICKET_STATUS = [
-        ('open', 'Open'),
-        ('in_progress', 'In Progress'),
-        ('closed', 'Closed'),
-    ]
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    issue_description = models.TextField()
-    status = models.CharField(max_length=50, choices=TICKET_STATUS)
-    response = models.TextField(blank=True, null=True)

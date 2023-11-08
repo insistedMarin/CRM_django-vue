@@ -4,3 +4,4 @@ from .UserInfoTest import GetUserInfoTests
 from .CustomerTest import CustomerTests
 from .SalesOpportunityTest import SalesOpportunityTests
 from .TaskTest import TaskTests
+from .ReportTest import ReportTests

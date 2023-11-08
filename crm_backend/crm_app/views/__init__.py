@@ -5,3 +5,4 @@ from .VerificationCode import send_verification_code
 from .CustomerView import CustomerViewSet
 from .SalesOpportunityView import SalesOpportunityViewSet
 from .TaskView import TaskViewSet
+from .ReportView import ReportViewSet

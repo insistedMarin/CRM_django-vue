@@ -112,7 +112,8 @@ DATABASES = {
         'NAME': 'postgres',  # 默认的数据库名，除非你在 Docker 启动命令中指定了其他的名称
         'USER': 'postgres',  # 默认的用户
         'PASSWORD': 'mysecretpassword',  # 你在启动 Docker 容器时设置的密码
-        'HOST': '172.17.0.3',  
+        # 'HOST': '172.17.0.3',  
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }

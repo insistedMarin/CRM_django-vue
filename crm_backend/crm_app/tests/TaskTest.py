@@ -92,3 +92,11 @@ class TaskTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Task.objects.count(), 0)
 
+    def test_get_due_today_count(self):
+        url = reverse('task-due-today-count')
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 0)  # 在这里设置您期望的今天到期任务的数量
+
+
