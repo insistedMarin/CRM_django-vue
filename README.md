@@ -61,5 +61,4 @@ Please note that this is a sample pipeline configuration and can be further cust
 
 ---
 
-This README provides an overview of the project, the technology stack, installation guide, an overview of the CI/CD pipeline, and how to contribute. You can further expand and customize it based on the actual project's needs.
 
