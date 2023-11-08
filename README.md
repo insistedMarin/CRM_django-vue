@@ -50,6 +50,13 @@ We use Jenkins for continuous integration and continuous delivery. The pipeline 
 4. Run the Docker container for the Django application.
 5. Apply database migrations.
 
+To enhance our CI/CD process, we have added a Docker run command to launch the Jenkins container with additional configurations. This command is as follows:
+
+```shell
+docker run --rm -u root -p 8081:8080 -v jenkins-data:/var/jenkins_home -v //var/run/docker.sock:/var/run/docker.sock myjenkins:2.41
+
+> **Note:** Here, `myjenkins:2.41` is an updated version of Jenkins based on `jenkinsci/blueocean`.
+
 Please note that this is a sample pipeline configuration and can be further customized based on project requirements. Additionally, ensure that Jenkins security is configured, and sensitive information is stored as Jenkins credentials.
 
 ---
