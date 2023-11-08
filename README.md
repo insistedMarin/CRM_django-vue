@@ -1,6 +1,6 @@
-# CRM Management System
+# CRM System
 
-The CRM management system is a comprehensive customer relationship management system designed to manage customers, sales opportunities, tasks, and generate reports. The system is developed using Vue.js for the frontend, Django for the backend, PostgreSQL as the database, and Jenkins for CI/CD automation.
+The CRM system is a comprehensive customer relationship management system designed to manage customers, sales opportunities, tasks, and generate reports. The system is developed using Vue.js for the frontend, Django for the backend, PostgreSQL as the database, and Jenkins for CI/CD automation.
 
 ## Technology Stack
 
